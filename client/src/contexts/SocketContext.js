@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
   // Initialize socket connection
   useEffect(() => {
     if (user && token) {
-      const newSocket = io(process.env.REACT_APP_API_URL || 'http://localhost:5000', {
+      const newSocket = io(process.env.REACT_APP_API_URL || 'https://campusvote-6vq7z9elu-campusvote-clusters-projects.vercel.app', {
         auth: {
           token: token
         },

@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 // Configure axios base URL and timeout
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://campusvote-6vq7z9elu-campusvote-clusters-projects.vercel.app';
 axios.defaults.timeout = 10000; // 10 seconds timeout
 axios.defaults.withCredentials = true;
 
