@@ -10,7 +10,7 @@
     "build": "cd client && npm run build",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
     "start": "cd server && npm start",
-    "vercel-build": "cd client && npm install && npm run build",
+    "build": "cd client && npm install && npm run build",
     "postinstall": "cd server && npm install"
   },
   "keywords": [
