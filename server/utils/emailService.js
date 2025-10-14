@@ -1,28 +1,52 @@
 const nodemailer = require('nodemailer');
 
-// Create transporter (you'll need to configure this with your email service)
+// Create transporter with support for multiple email services
 const createTransporter = () => {
-  // For development, you can use Gmail or other services
-  // For production, consider using services like SendGrid, AWS SES, etc.
+  const emailService = process.env.EMAIL_SERVICE || 'gmail';
   
-  if (process.env.NODE_ENV === 'production') {
+  // SendGrid Configuration (Recommended)
+  if (emailService === 'sendgrid') {
     return nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail',
+      host: 'smtp.sendgrid.net',
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'apikey',
+        pass: process.env.EMAIL_SENDGRID_API_KEY
+      }
+    });
+  }
+  
+  // Outlook/Hotmail Configuration
+  if (emailService === 'hotmail' || emailService === 'outlook') {
+    return nodemailer.createTransport({
+      service: 'hotmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
       }
     });
-  } else {
-    // Development: Use Gmail with app password or test account
+  }
+  
+  // Gmail Configuration (requires app password)
+  if (emailService === 'gmail') {
     return nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASSWORD || 'your-app-password'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
       }
     });
   }
+  
+  // Default fallback to Gmail
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER || 'your-email@gmail.com',
+      pass: process.env.EMAIL_PASSWORD || 'your-app-password'
+    }
+  });
 };
 
 // Send OTP email
