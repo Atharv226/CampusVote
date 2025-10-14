@@ -55,7 +55,7 @@ const sendOTP = async (email, otp) => {
     const transporter = createTransporter();
     
     const mailOptions = {
-      from: process.env.EMAIL_USER || 'noreply@campusvote.com',
+        from: `"CampusVote System" <${process.env.EMAIL_USER || 'atharvthakare011@gmail.com'}>`,
       to: email,
       subject: 'CampusVote - Email Verification OTP',
       html: `
@@ -118,7 +118,7 @@ const sendPasswordReset = async (email, resetToken) => {
     const resetUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
     
     const mailOptions = {
-      from: process.env.EMAIL_USER || 'noreply@campusvote.com',
+        from: `"CampusVote System" <${process.env.EMAIL_USER || 'atharvthakare011@gmail.com'}>`,
       to: email,
       subject: 'CampusVote - Password Reset Request',
       html: `
