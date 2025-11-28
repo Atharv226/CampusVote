@@ -4,6 +4,7 @@
   "description": "A secure online voting system for college campuses",
   "main": "server/index.js",
   "scripts": {
+    "start": "node server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
@@ -11,8 +12,7 @@
     "vercel-build": "cd client && npm install && npm run build",
     "render-build": "cd server && npm install",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
-    "start": "node server/index.js",
-    "postinstall": ""
+    "postinstall": "cd server && npm install"
   },
   "keywords": [
     "voting",
