@@ -36,3 +36,6 @@ Thumbs.db
 # Deployment
 .vercel
 .netlify
+
+Backend/.env
+*.env
