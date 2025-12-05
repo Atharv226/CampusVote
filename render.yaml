@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: campusvote-api
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd Backend/server && npm install
+    startCommand: cd Backend/server && npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+
+  - type: static_site
+    name: campusvote-web
+    plan: free
+    region: oregon
+    buildCommand: cd Frontend && npm install && npm run build
+    publishPath: Frontend/build
+    autoDeploy: true
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false
